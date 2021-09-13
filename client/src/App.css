@@ -1,0 +1,14 @@
+.mr-left{
+    margin-left: 9% !important;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: #fff;
+    font-size: 15px;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 10px !important;
+    padding-left: 13px !important;
+}
+.dropdown:hover>.dropdown-menu {
+    display: block !important;
+  }
