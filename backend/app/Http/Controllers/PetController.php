@@ -69,9 +69,11 @@ class PetController extends Controller
         $petDataArr = $res->json['objects'];
         $petDataListArr = array();
         
+        $availablePets = array();
         $petdata = array();
         $i = 0;
         foreach($petDataArr as $petDataVal){
+            
             if(is_array($petDataVal['pet_image_file_ids']) && count($petDataVal['pet_image_file_ids'])>0) {
                 $pet_id = $petDataVal['pet_id'];
                 $countpetid = PetImageId::where(['pet_id'=>$pet_id])->count();
@@ -92,6 +94,8 @@ class PetController extends Controller
                 $status_name="Sale";
             }
             // create array for listing page
+            $availablePets[] = $petDataVal['pet_id'];
+
             $petDataListArr[$i]['pet_id'] = $petDataVal['pet_id'];
             $petDataListArr[$i]['pet_image_file_ids'] = is_array($petDataVal['pet_image_file_ids'])?$petDataVal['pet_image_file_ids'][0]:"";
             $petDataListArr[$i]['pbrd_display_name'] = $petDataVal['pbrd_display_name'];
@@ -105,8 +109,93 @@ class PetController extends Controller
         $petDataListJsonArr = json_encode($petDataListArr);
         $petimgres = PetImageId::insert($petdata);
         
+        PetImageId::whereNotIn('pet_id',$availablePets)->update(['order_status'=>'Sale']);
+
         $this->get_image();
         return $petDataListJsonArr;
+    }
+
+    /**
+     * This function is used to removed pets images if sold and this will run every day
+     * @author Chirag Ghevariya
+     */
+    public function checkPetsCronJob(){
+
+        $search_param = [];
+        $search_param['qp_pstatus_name'] = "Available";
+
+        $res = $this->po_client->request('post', '/apps/pet_tracker/queries/read__qpt__list_pets', $search_param);
+        
+        $petDataArr = $res->json['objects'];
+
+        $petDataListArr = array();
+        
+        $availablePets = array();
+        $petdata = array();
+        $i = 0;
+        foreach($petDataArr as $petDataVal){
+
+            if(is_array($petDataVal['pet_image_file_ids']) && count($petDataVal['pet_image_file_ids'])>0) {
+                $pet_id = $petDataVal['pet_id'];
+                $countpetid = PetImageId::where(['pet_id'=>$pet_id])->count();
+                
+                if($countpetid==0) {
+                    $petdata[$i]['pet_id'] = $petDataVal['pet_id'];
+                    $petdata[$i]['pet_display_name'] = $petDataVal['pbrd_display_name'];
+                    $petdata[$i]['status'] = 0;
+                }
+            }
+            if($petDataVal['pstatus_name']=="Available") {
+                $date = Carbon::now();
+                $dateOfBirth = $petDataVal['plttr_birthdate'][0];
+                $status_name = "Available";
+            } else if($petDataVal['pstatus_name'] == "On Layaway") {
+                $status_name="Deposit";
+            }elseif($date->diffInWeeks($dateOfBirth)>12){
+                $status_name="Sale";
+            }
+            // create array for listing page
+            $availablePets[] = $petDataVal['pet_id'];
+
+            $petDataListArr[$i]['pet_id'] = $petDataVal['pet_id'];
+            $petDataListArr[$i]['pet_image_file_ids'] = is_array($petDataVal['pet_image_file_ids'])?$petDataVal['pet_image_file_ids'][0]:"";
+            $petDataListArr[$i]['pbrd_display_name'] = $petDataVal['pbrd_display_name'];
+            $petDataListArr[$i]['pstatus_name'] = $status_name;
+            $petDataListArr[$i]['pbrd_display_name'] = $petDataVal['pbrd_display_name'];
+            $petDataListArr[$i]['loc_addr_city'] = $petDataVal['loc_addr_city'];
+            $petDataListArr[$i]['pet_age'] = $petDataVal['pet_age'];
+            $petDataListArr[$i]['pet_gender'] = $petDataVal['pet_gender'];
+            $petDataListArr[$i]['order_status'] = "Available";
+            $i++;
+        }
+        $petDataListJsonArr = json_encode($petDataListArr);
+        
+        $petimgres = PetImageId::insert($petdata);
+
+        $this->get_image();
+        
+        $folderPath = 'storage/puppieimgs/';
+        $path = 'storage/puppieimgs/';
+
+        $allDirectory  = scandir($folderPath);
+        
+        if (isset($allDirectory) && !empty($allDirectory)) {
+
+            foreach($allDirectory as $key=>$v){
+
+                if(!in_array($v, $availablePets) && $v !="." && $v !=".."){
+                    
+                    $fullPath = $path.$v.'/';
+
+                    if(file_exists($fullPath)) {
+                        
+                        \File::deleteDirectory($fullPath);
+                    }          
+                }
+            }                   
+        }
+
+        PetImageId::whereNotIn('pet_id',$availablePets)->delete();
     }
 
     public function get_image()
@@ -161,11 +250,19 @@ class PetController extends Controller
     public function petDetails($pet_id)
     {
         $res = $this->po_client->request('post', '/apps/pet_tracker/queries/read__qpt__list_pets', ['qp_pet_id'=>$pet_id]);
+        
 
         $petDataArr = $res->json['objects'];
         $petDataArr[0]['isPrice'] = $this->isPrice;
         $petdata = $petDataArr[0];
-        return $petdata;
+        $re= $this->po_client->request('post', '/apps/pet_tracker/queries/read__qpt__breed_notes', ['qp_brdnt_breed_id'=>$petdata['pet_breed_id']]);
+        $d=$re->json['objects'];
+        $desc= $d[0]['brdnt_desc'];
+        $petDataArr[0]['brdnt_desc'] =$desc;
+        $petData=$petDataArr[0];
+
+
+        return $petData;
     }
 
     //pet locations
@@ -176,10 +273,15 @@ class PetController extends Controller
         $search_param['qp_pstatus_name'] = "Available";
         $search_param['qp_pet_currently_at_entity_id'] = "4,9558";
         $search_param['limit'] = 2;
+        // $search_param['isPrice'] = $this->isPrice;
         $res = $this->po_client->request('post', '/apps/pet_tracker/queries/read__qpt__list_pets', $search_param);
-
         $petDataArr = $res->json['objects'];
-        
+        foreach ($petDataArr as $key => $value) {
+            $petDataArr[$key]['isPrice']=$this->isPrice;
+        }
+
+        // $petDataArr[]['isPrice']=$this->isPrice;
+
         return $petDataArr;
     }
 }

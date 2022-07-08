@@ -47,7 +47,7 @@ class PinogyAppController extends Controller
 
         $pinogy->save();
 
-        return redirect('admin/pinogy-settings/1/edit')
+        return redirect('pinogy-settings/1/edit')
                         ->with('success','Pinogy settings has been updated successfully.');
     }
 }

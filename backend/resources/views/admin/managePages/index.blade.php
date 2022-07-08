@@ -33,7 +33,12 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-            <!-- /.card-header -->
+
+              <div class="card-header">
+                  <div class="float-left">
+                      <a class="btn btn-primary" href="{{ route('manage-pages.create') }}"> Add New</a>
+                  </div>
+              </div>
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>

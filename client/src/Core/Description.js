@@ -19,7 +19,7 @@ const SinglePet = (props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [singlepet, setSinglePet] = useState({});
   const [pagetitle, setPagetitle] = useState('');
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const [send, setSend] = useState(true);
   // form variables
   const breed = React.useRef(null);
@@ -33,15 +33,19 @@ const SinglePet = (props) => {
   const phone = React.useRef(null);
   const email = React.useRef(null);
   const message = React.useRef(null);
-  const [initVals, setInitVals] = useState({
+  // const [initVals, setInitVals] = useState({
+  //   first_name: '',
+  //   last_name: '',
+  //   phone: '',
+  //   email: '',
+  //   message: '',
+  // });
+  let initialValues = {
     first_name: '',
     last_name: '',
     phone: '',
     email: '',
     message: '',
-  });
-  let initialValues = {
-    ...initVals,
   };
   const validationSchema = Yup.object().shape({
     first_name: Yup.string().required('First name is required'),
@@ -76,7 +80,7 @@ const SinglePet = (props) => {
   const loadSinglePet = (pet_id) => {
     read(pet_id).then((data) => {
       if (data.error) {
-        setError(data.error);
+        //  setError(data.error);
       } else {
         setSinglePet(data);
       }
@@ -84,7 +88,7 @@ const SinglePet = (props) => {
   };
 
   let priceSection = '';
-  if (singlepet.isPrice == 1) {
+  if (singlepet.isPrice === 1) {
     priceSection = (
       <ul className='dtails-price'>
         <li
@@ -119,13 +123,14 @@ const SinglePet = (props) => {
             onError={(e) => {
               e.target.src = '/img/puppy/488px-No-Image-Placeholder.png'; // some replacement image
             }}
+            alt=''
           />
         </a>
       </SwiperSlide>
     ));
     img_thumbnail = img_ids.map((image_id) => (
       <SwiperSlide>
-        <img src={PUPPIEIMG + singlepet.pet_id + '/image-' + image_id + '-74X90.jpeg'} />
+        <img alt='' src={PUPPIEIMG + singlepet.pet_id + '/image-' + image_id + '-74X90.jpeg'} />
       </SwiperSlide>
     ));
   }
@@ -261,7 +266,7 @@ const SinglePet = (props) => {
                     <i className='ti-angle-right'></i>{' '}
                   </li>
                   <li>
-                    <a href='#'>{singlepet && singlepet.pbrd_display_name}</a>
+                    <a href='/'>{singlepet && singlepet.pbrd_display_name}</a>
                   </li>
                 </ul>
               </div>
@@ -322,12 +327,12 @@ const SinglePet = (props) => {
                 </div>
                 <div className='call-section'>
                   <div className='call-left'>
-                    <img src='/img/phone.svg' />
+                    <img src='/img/phone.svg' alt='' />
                     <h4>Need a nuppy guidience? </h4>
                   </div>
                   <div className='call-right'>
                     <span>
-                      {singlepet.loc_contact_numbers && singlepet.loc_contact_numbers.Office}
+                      <a href='tel:{singlepet.loc_contact_numbers && singlepet.loc_contact_numbers.Office}'>{singlepet.loc_contact_numbers && singlepet.loc_contact_numbers.Office}</a>
                     </span>
                     {/* <a href="#" className="boxed-btn3">Financing Available</a> */}
                   </div>
@@ -340,14 +345,7 @@ const SinglePet = (props) => {
                 <div className='decription-parra'>
                   <h4>Description :</h4>
                   <p>
-                    The Cavachone is a designer breed of Cavalier King Charles Spaniel and Bichon
-                    Frise. The appearance can vary greatly between dogs in a litter. Some dogs may
-                    have more Bichon Frise appearance compared to other dogs in the litter that may
-                    have more of a Cavalier King Charles Spaniel appearance. The Cavachone is an
-                    intelligent dog which is easy and willing to learn. It is recommended that you
-                    begin socialization and training early in the puppy's life. The puppy will get
-                    bored with training. You must vary the length of the training sessions as well
-                    as variety in how the training is given.
+                    {singlepet && singlepet.brdnt_desc}
                   </p>
                 </div>
               </div>

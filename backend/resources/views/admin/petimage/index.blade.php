@@ -30,6 +30,14 @@
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
                 </div>
+                {{Session::forget('success')}}
+            @endif
+            @if ($message = Session::get('error'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+                {{Session::forget('error')}}
+
             @endif
             <div class="card">
                 <div class="card-header">
@@ -62,7 +70,9 @@
                     <th>S. No</th>
                     <th>Pet Id</th>
                     <th>Pet Name</th>
+                    <th>Order Status</th>
                     <th>Status</th>
+                    <th>Refresh Image</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -76,11 +86,21 @@
                             <td>{{$petimage->pet_id}}</td>
                             <td>{{$petimage->pet_display_name}}</td>
                             <td>
+                              @if($petimage->order_status == 'Available')
+                                  <span class="badge badge-success">{{$petimage->order_status}}</span>
+                              @else
+                                  <span class="badge badge-danger">{{$petimage->order_status}}</span>
+                              @endif
+                            </td>
+                            <td>
                             @if ($petimage->status === 1)
                                 <span class="badge badge-success"><i class="fa fa-check"></i></span>
                             @else
                                 <span class="badge badge-danger"><i class="fa fa-remove"></i></span>
                             @endif 
+                            </td>
+                            <td>
+                               <a href="javascript:void()" data-action="{{route('pet-images.refresh',Crypt::encrypt($petimage->pet_id))}}" class="confirm"><span class="badge badge-danger"> <i class="fa fa-refresh"></i></span></a>
                             </td>
                         </tr>
                         @php $i++ @endphp
@@ -120,7 +140,7 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-danger" id="truncate" href="{{url('admin/truncate-images')}}">Done</a>
+              <a class="btn btn-danger" id="truncate" href="{{url('truncate-images')}}">Done</a>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -148,6 +168,15 @@
               location.reload();
             }
         });
+      });
+
+      $(document).on('click', '.confirm', function(event) {
+        var con=confirm('Are you sure to delete images');
+        if (con) {  
+           var action=$(this).data('action');
+           window.location=action;
+        }
+
       });
     });
 </script>

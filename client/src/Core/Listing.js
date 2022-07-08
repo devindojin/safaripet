@@ -11,36 +11,28 @@ import { getFilteredPets } from "./apiCore";
 import { Loader } from "./loader";
 
 export default function Listing() {
-  const [error, setError] = useState(false);
+  //const [error, setError] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const loadFilteredResults = (
-    filterGenders,
-    filterLocations,
-    filterCollection
-  ) => {
+  const loadFilteredResults = (filterGenders, filterLocations, filterCollection) => {
     setIsLoading(true);
-    getFilteredPets(filterGenders, filterLocations, filterCollection).then(
-      (data) => {
+    getFilteredPets(filterGenders, filterLocations, filterCollection)
+      .then((data) => {
         if (data.error) {
           setIsLoading(false);
-          setError(data.error);
+          // setError(data.error);
         } else {
           setIsLoading(false);
           setFilteredResults(data);
         }
-      }
-    );
+      })
+      .catch((error) => {
+        setIsLoading(false);
+      });
   };
-  const _Indicator = () => {
-    return (
-      <div className="spinner-border text-primary" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    );
-  };
+
   useEffect(() => {
-    loadFilteredResults("", "", "");
+    loadFilteredResults('', '', '');
   }, []);
 
   return (
@@ -89,9 +81,7 @@ export default function Listing() {
                 <div className='close-menu'>
                   <i className='ti ti-close'></i>
                 </div>
-                <CheckboxList
-                  loadFilteredResults={loadFilteredResults}
-                />
+                <CheckboxList loadFilteredResults={loadFilteredResults} />
               </div>
             </div>
             <div className='col-lg-9 col-md-9 d-md-flex justify-content-md-center'>

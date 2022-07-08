@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import {HashRouter, BrowserRouter, Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Description from './Core/Description';
 import Home from './Core/Home';
 import Listing from './Core/Listing';

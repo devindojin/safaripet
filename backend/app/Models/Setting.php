@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
+
+    const INSGRAM_FEED_SETTING_ID = 'instagram_feed';
+        
 }

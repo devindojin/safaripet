@@ -71,7 +71,7 @@ class TestimonialController extends Controller
 
         $clienttestimonials->save();
 
-        return redirect('admin/manage-testimonials')
+        return redirect('manage-testimonials')
                         ->with('success','Record has been added successfully.');
     }
 
@@ -132,7 +132,7 @@ class TestimonialController extends Controller
 
         $clienttestimonials->save();
 
-        return redirect('admin/manage-testimonials')
+        return redirect('manage-testimonials')
                         ->with('success','Record has been updated successfully.');
     }
 

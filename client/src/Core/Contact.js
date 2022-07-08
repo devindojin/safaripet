@@ -1,7 +1,6 @@
-import React, {useState, useEffect}  from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Form from './Form';
 import Menu from './Menu';
 import Footer from './Footer';
 import { sendMessage } from './apiCore';
@@ -169,10 +168,9 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
-
 
 export default Contact;

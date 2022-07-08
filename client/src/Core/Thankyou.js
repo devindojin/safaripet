@@ -42,7 +42,7 @@ export default function Thankyou() {
                   <strong>We will respond to your message as soon as we can</strong>.
                 </p>
                 <p>
-                  If you need to reach us immediately please call the store at Phone: (203)901-1003.
+                  If you need to reach us immediately please call the store at Phone: <a href="tel:(203)901-1003">(203)901-1003</a>.
                   Pictures of available puppies are listed on our website.
                 </p>
                 <p>
@@ -51,7 +51,7 @@ export default function Thankyou() {
                 <p>
                   If you have questions regarding our puppies, please give us a call and speak with
                   a pet counselor. They can give you all the details of our warranties and the
-                  ranges they normally run for. Phone: (203)901-1003 OR Stop by the store between 10
+                  ranges they normally run for. Phone: <a href="tel:(203)901-1003">(203)901-1003</a> OR Stop by the store between 10
                   am and 9 PM weekdays and Saturday or 11 AM to 6 PM Sunday.
                 </p>
               </div>
@@ -66,6 +66,7 @@ export default function Thankyou() {
                 allowfullscreen=''
                 aria-hidden='false'
                 tabindex='0'
+                title='maps'
               ></iframe>
             </div>
           </div>
@@ -76,7 +77,7 @@ export default function Thankyou() {
                   Our pet counselors are dedicated to matching the right pet with the right customer
                   and meeting the needs of both.
                 </p>
-                <a href='#' class='boxed-btn5'>
+                <a href='/' class='boxed-btn5'>
                   AVAILABLE PUPPIES
                 </a>
               </div>
@@ -87,7 +88,7 @@ export default function Thankyou() {
                   Do you need help financing your new pet purchase? Please come in store to hear
                   about one of our awesome financing options
                 </p>
-                <a href='#' class='boxed-btn5'>
+                <a href='/' class='boxed-btn5'>
                   FINANCING
                 </a>
               </div>

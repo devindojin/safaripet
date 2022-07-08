@@ -44,7 +44,19 @@ class ManagePagesController extends Controller
     public function pageStatus()
     {
         $page_status = Page::select(['slug','status'])->get();
+
+        $page_status_arr = [];
+        $i = 0;
+        foreach($page_status as $singlePage) {
+            $page_status_arr[$i]['slug'] = $singlePage->slug;
+            $page_status_arr[$i]['status'] = $singlePage->status;
+
+            $i++;
+        }
         
-        return $page_status;
+        $page_status_arr[5]['slug'] = "wecare";
+        $page_status_arr[5]['status'] = 1;
+
+        return $page_status_arr;
     }
 }

@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ZohoTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(PageSeeder::class);
+        $this->call(MenuSeeder::class);
     }
 }

@@ -24,6 +24,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-html-parser": "^2.0.2",
+    "react-ig-feed": "^1.0.4",
     "react-loader-spinner": "^4.0.0",
     "react-owl-carousel": "^2.3.3",
     "react-router-dom": "^5.2.0",

@@ -4,7 +4,7 @@
     <a href="" class="brand-link">
       <img src="{{asset('admin/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Safari Pet Center</span>
+      <span class="brand-text font-weight-light">Safari Stan's Pet Center</span>
     </a>
 
     <!-- Sidebar -->
@@ -25,7 +25,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="{{url('admin/dashboard')}}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : ''}}">
+            <a href="{{url('dashboard')}}" class="nav-link {{ request()->is('dashboard') ? 'active' : ''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -33,10 +33,18 @@
             </a>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="{{url('admin/manage-pages')}}" class="nav-link {{ request()->is('admin/manage-pages') ? 'active' : ''}}">
+            <a href="{{url('manage-pages')}}" class="nav-link {{ request()->is('manage-pages') ? 'active' : ''}}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Manage Pages
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{url('manage-menu')}}" class="nav-link {{ request()->is('manage-menu') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Menu Builder
               </p>
             </a>
           </li>
@@ -50,7 +58,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('admin/pinogy-settings/1/edit')}}" class="nav-link {{ request()->is('admin/pinogy-settings/1/edit') ? 'active' : ''}}">
+                <a href="{{url('pinogy-settings/1/edit')}}" class="nav-link {{ request()->is('pinogy-settings/1/edit') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pinogy settings</p>
                 </a>
@@ -58,7 +66,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('admin/pet-images')}}" class="nav-link {{ request()->is('admin/pet-images') ? 'active' : ''}}">
+                <a href="{{url('pet-images')}}" class="nav-link {{ request()->is('pet-images') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pet images</p>
                 </a>
@@ -66,7 +74,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="{{url('admin/manage-testimonials')}}" class="nav-link {{ request()->is('admin/manage-testimonials') ? 'active' : ''}}">
+            <a href="{{url('manage-testimonials')}}" class="nav-link {{ request()->is('manage-testimonials') ? 'active' : ''}}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Manage Client Testimonials
@@ -74,13 +82,32 @@
             </a>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="{{url('admin/settings')}}" class="nav-link {{ request()->is('admin/settings') ? 'active' : ''}}">
+            <a href="{{url('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : ''}}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Change Password
               </p>
             </a>
           </li>
+
+           <li class="nav-item has-treeview menu-open">
+            <a href="{{route('getInstagramFeedSetting')}}" class="nav-link {{ request()->is('getInstagramFeedSetting') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Instagram Feed
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{route('script-settings-views')}}" class="nav-link {{ request()->is('script-settings-views') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Script Settings
+              </p>
+            </a>
+          </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

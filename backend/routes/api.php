@@ -38,7 +38,9 @@ Route::get('getfinancing', [ManagePagesController::class, 'financingPage']);
 Route::get('page-status',[ManagePagesController::class, 'pageStatus']);
 
 Route::get('testimonials', [TestimonialController::class, 'index']);
-
+Route::get('mymenu', [App\Http\Controllers\Api\MenuController::class, 'index']);
+Route::get('insta-token', [App\Http\Controllers\Api\SettingController::class, 'index']);
+Route::get('script-settings', [App\Http\Controllers\Api\ScriptSettingController::class, 'index']);
 
 Route::post('send_inquiry', [ZohoController::class, 'insertPetProfile']);
 Route::post('send_contact_info', [ContactController::class, 'store']);

@@ -76,15 +76,7 @@ const WhySafari = () => {
                                 PUPPIES</h3>
                         </div>
                     </div>
-                    <div className="col-lg-3 col-md-6 col-6">
-                        <div className="feature-block">
-                            <div className="feature-image">
-                                <img src="/img/feature/8.png" alt="safari"/>
-                            </div>
-                            <h3>LIFETIME TRAINING
-                                PROGRAM</h3>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

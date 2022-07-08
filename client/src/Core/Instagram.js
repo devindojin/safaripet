@@ -1,39 +1,44 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import InstagramFeed  from 'react-ig-feed';
+import 'react-ig-feed/dist/index.css';
+import { getInstaToken } from "./apiCore";
 
 const Instagram = () => {
 
-    return(
-        <div>  
-            <div className="instagram-section pt-5">
-                <div className="container-fluid">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-7 col-md-10">
-                            <div className="section_title text-center">
-                                <h3>Pet Stories</h3>
-                                <h4>Follow us on Instagram @safaristansnh and @safaristanss</h4>
-                            </div>
-                        </div>
-                    </div>
+    const [instaToken,setInstaToken] = useState([]);
 
-                    <div className="row justify-content-center">
-                        <div className="col-lg-12 p-0">
-                            <div className="insta-post-block">
-                                <div className="instagram-post">
-                                    <img src="/img/insta1.jpg"/>
-                                </div>
-                                <div className="instagram-post center">
-                                    <img src="/img/insta2.jpg"/>
-                                </div>
-                                <div className="instagram-post">
-                                    <img src="/img/insta3.jpg"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    const loadInstaSetting = () => {
+      getInstaToken().then((data) => {
+          
+          console.log(data);
+          setInstaToken(data.data);
+        
+      });
+    };
+
+    useEffect(() => {
+      loadInstaSetting();
+    }, []);
+
+    return (
+      <div>
+        <div className='instagram-section pt-5'>
+          <div className='container-fluid'>
+            <div className='row justify-content-center'>
+              <div className='col-lg-7 col-md-10'>
+                <div className='section_title text-center'>
+                  <h3>Pet Stories</h3>
+                  <h4>Follow us on Instagram <a href="https://www.instagram.com/safaristansnewhaven/" target="_blank">@safaristansnewhaven</a></h4>
                 </div>
+              </div>
+            
+              {instaToken.map((client, i) => (
+                  <InstagramFeed token={client.token}  counter="6"/>
+              ))}
             </div>
+          </div>
         </div>
+      </div>
     );
     
 };

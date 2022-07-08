@@ -25,7 +25,7 @@
       <div class="card card-default">
           <div class="card-header">
             <div class="my-2">
-                <a class="btn btn-primary" href="{{ url('admin/manage-testimonials') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ url('manage-testimonials') }}"> Back</a>
             </div> 
           </div>
           <!-- /.card-header -->

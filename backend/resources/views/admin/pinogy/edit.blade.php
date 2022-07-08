@@ -53,7 +53,7 @@
                         <div class="col-md-6 form-group">
                           <label for="endUrl">Price</label>
                           <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" name="price" id="customCheckbox1" value="1" {{ $pinogypage->price == 1 ? 'checked' : null }}>
+                            <input class="custom-control-input" type="checkbox" name="price" id="customCheckbox1" value="1" {{ $pinogypage->price == 1 ? 'checked' : 0 }}>
                             <label for="customCheckbox1" class="custom-control-label">On</label>
                           </div>
                         </div>

@@ -60,7 +60,7 @@ class ManagePagesController extends Controller
 
         $pages->save();
 
-        return redirect('admin/manage-pages')
+        return redirect('manage-pages')
                         ->with('success','page created successfully.');
     }
 
@@ -103,7 +103,7 @@ class ManagePagesController extends Controller
 
         $pages->save();
 
-        return redirect('admin/manage-pages')
+        return redirect('manage-pages')
                         ->with('success','page updated successfully.');
     }
 

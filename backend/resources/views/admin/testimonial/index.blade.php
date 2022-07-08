@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-header">
                 <div class="float-left">
-                    <a class="btn btn-primary" href="{{ url('admin/manage-testimonials/create') }}"> Add New</a>
+                    <a class="btn btn-primary" href="{{ url('manage-testimonials/create') }}"> Add New</a>
                 </div>
 
                 <div class="float-right">

@@ -12,6 +12,18 @@ export const read = (pet_id) =>{
     });
 };
 
+export const pageStatus = (pet_id) =>{
+    return fetch(`${API}/page-status`, {
+        method: "GET",
+    })
+    .then(response =>{
+        return response.json();      
+    })
+    .catch(err =>{
+        console.log(err);
+    });
+};
+
 export const getAboutPage = () =>{
     return fetch(`${API}/getaboutpage`, {
         method: "GET",
@@ -155,6 +167,45 @@ export const gettestimonials = () =>{
         method: "GET",
     })
     .then(response => {
+        return response.json();
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+}
+
+export const getmymenu = () =>{
+    return fetch(`${API}/mymenu`, {
+        method: "GET",
+    })
+    .then(response => {
+
+        return response.json();
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+}
+
+export const getInstaToken = () =>{
+    return fetch(`${API}/insta-token`, {
+        method: "GET",
+    })
+    .then(response => {
+
+        return response.json();
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+}
+
+export const getScriptSetting = () =>{
+    return fetch(`${API}/script-settings`, {
+        method: "GET",
+    })
+    .then(response => {
+
         return response.json();
     })
     .catch(err=>{

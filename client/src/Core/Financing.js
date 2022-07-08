@@ -1,6 +1,5 @@
 import React, {useState, useEffect}  from 'react';
-import {Helmet} from 'react-helmet';
-import {IMG} from "../config";
+import { Helmet } from 'react-helmet';
 import Menu from './Menu';
 import Footer from './Footer';
 import {getFinancingPage} from "./apiCore";

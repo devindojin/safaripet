@@ -225,3 +225,8 @@ a.article, a.article:hover {
     left: 50%;
     margin: -40px;
   }
+
+.color-link{
+    color: white !important;
+  }
+  

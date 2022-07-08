@@ -20,4 +20,22 @@ class SettingsController extends Controller
         $setting->status = $status;
         $setting->save();
     }
+
+    public function updateInstagramFeedSetting(Request $request)
+    {
+        $setting = Setting::where('name',Setting::INSGRAM_FEED_SETTING_ID)->first();
+        $setting->name = 'instagram_feed';
+        $setting->token = $request->token;
+        $setting->save();
+
+        return back();
+    }
+
+    public function getInstagramFeedSetting(){
+
+        $settingInsta = Setting::where('name',Setting::INSGRAM_FEED_SETTING_ID)->first();
+
+        return view('admin.settings.instagram_feed',compact('settingInsta'));
+    }
+
 }
